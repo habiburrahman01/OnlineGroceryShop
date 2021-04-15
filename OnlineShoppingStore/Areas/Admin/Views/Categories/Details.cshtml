@@ -1,0 +1,35 @@
+﻿@model OnlineShoppingStore.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item ">Categories</li>
+        <li class="breadcrumb-item active">Category Details</li>
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-list-alt"></i>
+            Category Details
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CategoryName)
+                </dd>
+            </dl>
+            <a onclick="window.history.back();" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+﻿@model OnlineShoppingStore.Models.Order
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-row align-items-center justify-content-between">
+            <span class="h4 font-weight-bold"> Order</span>
+            <a onclick="window.history.back();" class="btn btn-primary">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="row px-md-5 border p-1">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        Order No #@Model.OrderId
+                    </div>
+                    <div class="form-group">
+                        Customer Name: @Model.FullName
+                    </div>
+                    <div class="form-group">
+                        Phone: @Model.PhoneNumber
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            Status: @Model.Status
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            Payment: @Model.Payment.Type
+                            @*@if (@Model.Payment.Type == PaymentType.BKash)
+                            {
+                                <input type="button" class="btn-link" value="Instruction" id="bkash" />
+                            }*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        Order At: @Model.OrderedAt
+                    </div>
+                    <div class="form-group">
+                        Email: @Model.Email
+                    </div>
+                    <div class="form-group">
+                        Adress: @Model.Address
+                    </div>
+                    <div class="form-group">
+                        Completed At: @Model.CompletedAt
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <h5 class="text-center text-info m-auto p-1 font-weight-bold">List Of Products</h5>
+                <table class="table table-bordered table-responsive-sm table-sm" width="100">
+                    <thead>
+                        <tr>
+                            <th>
+                                Products
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Total Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PricePerQuantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row p-2 d-flex flex-row align-items-center justify-content-between">
+                <span class="font-weight-bold text-info">
+                    Total:  @Model.TotalPrice
+                </span>
+                <span class="font-weight-bold text-info">
+                    Shipping Charge:  @Model.ShippingCharge
+                </span>
+            </div>
+            @if (Model.Status == OrderStatus.Shipping || Model.Status == OrderStatus.Completed)
+            {
+                if (Model.Shipping != null)
+                {
+                    <div class="row p-2 d-flex flex-row align-items-center justify-content-between">
+                        <span class="h5 font-weight-bold text-success">
+                            Shipment Details :
+                        </span>
+                    </div>
+                    <div class="row px-md-5 border p-1">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                Supplyer: @Model.Shipping.Shipper
+                            </div>
+                            <div class="form-group">
+                                Charge: @Model.Shipping.Charge
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                Phone: @Model.Shipping.Phone
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+        <div class="card-footer text-center">
+            <div class="list-group-item-action">
+                @if (Model.Status == OrderStatus.Pending && Model.Status != OrderStatus.Completed && Model.Status != OrderStatus.Cancel)
+                {
+                <button type="button"  class="btn btn-xs btn-primary"  data-toggle="modal" data-target="#shipment">
+                    Shipping
+                </button>
+                }
+
+                @if (Model.Status != OrderStatus.Completed && Model.Status != OrderStatus.Cancel)
+                {
+                    <form style="display:inline;" method="post">
+                        <input type="hidden" name="id" value="@Model.OrderId" />
+                        <input type="hidden" name="status" value="@OrderStatus.Completed" />
+                        <button type="submit" class="btn btn-xs btn-info  py-1">Completed</button>
+                    </form>
+                }
+
+                @if (Model.Status != OrderStatus.Completed && Model.Status != OrderStatus.Cancel)
+                {
+                    <form style="display:inline;" method="post">
+                        <input type="hidden" name="id" value="@Model.OrderId" />
+                        <input type="hidden" name="status" value="@OrderStatus.Cancel" />
+                        <button type="submit" class="btn btn-xs btn-danger  py-1">Cancel</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="shipment">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form style="display:inline;" method="post">
+                <input type="hidden" name="id" value="@Model.OrderId" />
+                <input type="hidden" name="status" value="@OrderStatus.Shipping" />
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Shipping Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Shipping.Shipper" class="control-label"></label>
+                        <input asp-for="Shipping.Shipper" class="form-control" />
+                        <span asp-validation-for="Shipping.Shipper" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Shipping.Phone" class="control-label"></label>
+                        <input asp-for="Shipping.Phone" class="form-control" />
+                        <span asp-validation-for="Shipping.Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Shipping.Charge" class="control-label"></label>
+                        <input asp-for="Shipping.Charge" class="form-control" />
+                        <span asp-validation-for="Shipping.Charge" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary mr-1">Shipment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model OnlineShoppingStore.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item ">Products</li>
+        <li class="breadcrumb-item active">@Model.ProductName</li>
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-row align-items-center justify-content-between">
+            <span class="h4 font-weight-bold"> @Model.ProductName</span>
+            <a onclick="window.history.back();" class="btn btn-primary">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="row px-md-5">
+                <div class="row">
+                    <div class="col-lg-7 mx-auto d-block">
+                        <h3 class="title my-1"> @Html.DisplayFor(model => model.ProductName)</h3>
+                        <p class="price-detail-wrap">
+                            <span class="price h5 text-warning">
+
+                                <span class="currency">BDT </span><span class="num"> @Html.DisplayFor(model => model.Price)</span>
+                                <span class="currency"> ৳</span>
+                            </span>
+                        </p>
+
+                        <span> <i class="far fa-clock"> Create: </i> @Html.DisplayFor(model => model.CreatedDate)</span>
+                        <br />
+                        <span> <i class="far fa-clock"> Modified: </i> @Html.DisplayFor(model => model.ModifiedDate)</span>
+                        <div class="item-property pt-2">
+                            <span class="price font-weight-bold">
+                                <span>@Html.DisplayNameFor(model => model.Quantity) : @Html.DisplayFor(model => model.Quantity)</span>
+                            </span>
+                        </div>
+                        <div class="item-property">
+                            <span class="price font-weight-bold">
+                                <span>@Html.DisplayNameFor(model => model.Category.CategoryName) : @Html.DisplayFor(model => model.Category.CategoryName)</span>
+                            </span>
+                        </div>
+                        <div class="item-property pt-2">
+                            <span class="font-weight-bold">@Html.DisplayNameFor(model => model.Description) : </span>
+                            <span class=" text-justify">@Html.DisplayFor(model => model.Description)</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="p-5">
+                            <a target="_blank" href="@Url.Content(Model.ProductImage)">
+                                <img class="img-fluid" src="@Url.Content(Model.ProductImage)" alt="@Model.ProductName">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OnlineShoppingStore.Models.Shipping>
+
+@{
+    ViewData["Title"] = "Shipping";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Shipping</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-fw fa-plane"></i>
+            Shipping
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <input type="hidden" id="tittle" value="Shipping List" />
+                <table class="table table-bordered table-responsive-md" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order.OrderId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Shipper)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Charge)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Order.OrderId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Shipper)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Charge)
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                                    <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model OnlineShoppingStore.Models.CartViewModel
+@{
+    ViewData["Title"] = "CartItem";
+}
+
+<div class="container-fluid">
+
+    <div class="card mb-3">
+        <div class="card-header d-flex flex-row align-items-center justify-content-between">
+            <span class="h4 font-weight-bold"> @Model.ProductName</span>
+            <a onclick="window.history.back();" class="btn btn-primary">Back</a>
+        </div>
+        <div class="card-body">
+            <div class="row px-md-5">
+                <div class="row">
+                    <div class="col-lg-7 mx-auto d-block">
+                        <h3 class="title my-1"> @Html.DisplayFor(model => model.ProductName)</h3>
+                        <p class="price-detail-wrap">
+                            <span class="price h5 text-warning">
+
+                                <span class="currency">BDT </span><span class="num"> @Html.DisplayFor(model => model.PricePerQuantity)</span>
+                                <span class="currency"> ৳</span>
+                            </span>
+                        </p>
+                        <div class="item-property pt-2">
+                            <span class="font-weight-bold">@Html.DisplayNameFor(model => model.Description) : </span>
+                            <span class=" text-justify">@Html.DisplayFor(model => model.Description)</span>
+                        </div>
+                        <div class="item-property pt-2">
+                            <form asp-action="CartItem" asp-route-id="@Model.ProductId" asp-route-ReturnUrl="@Context.Request.GetEncodedPathAndQuery()">
+                                <div class="form-group d-flex flex-row">
+                                    <label class="control-label pr-2 font-weight-bold">Quantity: </label>
+                                    <input class="form-control col-3" name="newQuantity" value="@Model.Quantity" type="number" required min="1" max="@Model.Stock" />
+                                    <button type="submit" class="btn btn-primary ml-4">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="item-property pt-2 ">
+                                <label class="control-label pr-2 font-weight-bold">Total Price: </label>
+                                <input  class="form-control" value="@Model.TotalPrice" readonly />
+                        </div>
+                        <div class="item-property py-2 m-auto">
+                            <form asp-action="RemoveFromCart" asp-route-id="@Model.ProductId" asp-route-quantity="@Model.Quantity">
+
+                                <button type="submit" class="btn btn-danger" title="Remove"><i class="fa fa-trash"></i> Remove From Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="p-5">
+                            <a target="_blank" href="@Url.Content(Model.Image)">
+                                <img class="img-fluid" src="@Url.Content(Model.Image)" alt="@Model.ProductName">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,185 @@
+﻿@model OnlineShoppingStore.Models.ConfirmOrderViewModel
+@{
+    ViewData["Title"] = "ConfirmOrder";
+    decimal total = 0;
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            Order
+        </div>
+        <div class="card-body">
+            <form asp-action="ConfirmOrder" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <span class=" font-weight-bold">1. Name & Address </span>
+                <div class="row px-md-5 border p-1">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class=" font-weight-bold">2.  Delivery Method  </span>
+                <div class="row px-md-5 border p-1">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="ShippingCharge" id="shippingCharge1" class="radio" type="radio" value="50" />
+                            <label class="control-label"> Home Delivery inside Dhaka Tk 50</label>
+                            <br />
+                            <input asp-for="ShippingCharge" id="shippingCharge2" class="radio" type="radio" value="100" />
+                            <label class="control-label">  Home Delivery outside Dhaka Tk 100</label>
+                            <br />
+                            <span asp-validation-for="ShippingCharge" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class=" font-weight-bold">3. Payment Method </span>
+                <div class="row px-md-5 border p-1">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="Payment.Type" class="payment_method" type="radio" value="@PaymentType.Cash_On_Delivery" />
+                            <label class="control-label">Cash On Delivery</label>
+                            <br />
+                            <input asp-for="Payment.Type" class="payment_method" type="radio" id="bkash" value="@PaymentType.BKash" />
+                            <label class="control-label">BKash</label>
+                            <br />
+                            <span asp-validation-for="Payment.Type" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <table class="table table-bordered table-responsive-sm table-sm" width="100">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Serial No.
+                                </th>
+                                <th>
+                                    Products
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Total Price
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sn = 1; foreach (var item in Model.CartItems)
+                                {
+                                    total = total + item.TotalPrice;
+                                    <tr>
+                                        <td>
+                                            @sn
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PricePerQuantity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalPrice)
+                                        </td>
+                                    </tr>
+                                    sn++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row p-2 d-flex flex-row align-items-center justify-content-between">
+                    <span class="font-weight-bold text-info">
+                        <input asp-for="TotalPrice" class="form-control" id="TotalPrice" readonly />
+                    </span>
+                    <input type="submit" value="Place Order Now" class="btn btn-success mr-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="instruction">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">How To Pay</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <ol>
+                        <li>Press *247#</li>
+                        <li>Then Reply 3 For Payment</li>
+                        <li>Merchant AC: 01969124997</li>
+                        <li>Amount: [Your Billing Amount]</li>
+                        <li>Reference: Order No (You will get From Next Page)</li>
+                        <li>Counter: 1</li>
+                    </ol>
+                </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            var totalPrice = @total;
+            var charge1= 0
+            var charge2 = 0
+            $("#TotalPrice").val(parseFloat(totalPrice).toFixed(2));
+            $("#shippingCharge1").change(function () {
+                charge1 = parseFloat($("#shippingCharge1").filter(':checked').val());
+                var totalwithCharge = totalPrice + charge1;
+                $("#TotalPrice").val(parseFloat(totalwithCharge).toFixed(2));
+            })
+            $("#shippingCharge2").change(function () {
+                charge2 = parseFloat($("#shippingCharge2").filter(':checked').val());
+                var totalwithCharge = totalPrice + charge2;
+                $("#TotalPrice").val(parseFloat(totalwithCharge).toFixed(2));
+            })
+
+            $("#bkash").change(function () {
+                $("#instruction").show()
+            })
+            $("#bkash").change(function () {
+                $("#instruction").modal('show');
+            })
+        });
+    </script>
+}

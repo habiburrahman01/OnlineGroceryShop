@@ -1,0 +1,93 @@
+﻿@model OnlineShoppingStore.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item ">Orders</li>
+        <li class="breadcrumb-item active">Edit Orders</li>
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            Edit Orders
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="OrderId" />
+                <input type="hidden" asp-for="Status" />
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderedAt" class="control-label"></label>
+                    <input asp-for="OrderedAt" class="form-control" />
+                    <span asp-validation-for="OrderedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShippingCharge" class="control-label"></label>
+                    <input asp-for="ShippingCharge" class="form-control" />
+                    <span asp-validation-for="ShippingCharge" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPrice" class="control-label"></label>
+                    <input asp-for="TotalPrice" class="form-control" />
+                    <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                </div>
+                @{
+                    if (Model.Shipping != null || Model.Status == OrderStatus.Shipping)
+                    {
+                        <div class="form-group">
+                            <label asp-for="Shipping.Shipper" class="control-label"></label>
+                            <input asp-for="Shipping.Shipper" class="form-control" />
+                            <span asp-validation-for="Shipping.Shipper" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Shipping.Phone" class="control-label"></label>
+                            <input asp-for="Shipping.Phone" class="form-control" />
+                            <span asp-validation-for="Shipping.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Shipping.Charge" class="control-label"></label>
+                            <input asp-for="Shipping.Charge" class="form-control" />
+                            <span asp-validation-for="Shipping.Charge" class="text-danger"></span>
+                        </div>
+                    }
+                }
+                <div class="form-group">
+                    <a onclick="window.history.back();" class="btn btn-danger">Cancel</a>
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

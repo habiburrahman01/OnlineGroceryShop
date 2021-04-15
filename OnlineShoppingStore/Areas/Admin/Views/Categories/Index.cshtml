@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnlineShoppingStore.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Categories</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-list-alt"></i>
+            Categories
+            <a asp-action="Add" class="btn btn-info mr-auto float-right"><i class="fas fa-plus"></i>Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <input type="hidden" id="tittle" value="List of Categories" />
+                <table class="table table-bordered table-responsive-md" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

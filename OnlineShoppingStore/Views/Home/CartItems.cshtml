@@ -1,0 +1,85 @@
+﻿@model IEnumerable<OnlineShoppingStore.Models.CartViewModel>
+@{
+    ViewData["Title"] = "CheckOut";
+    decimal total = 0;
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-list-alt"></i>
+            Cart List
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100">
+                    <thead>
+                        <tr>
+                            <th>
+                                Serial No.
+                            </th>
+                            <th>
+                                Products
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Total Price
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                                int sn = 1;
+                                foreach (var item in Model)
+                                {
+                                    total = total + item.TotalPrice;
+                                <tr>
+                                    <td>
+                                        @sn
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PricePerQuantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                                    </td>
+                                    <td class="d-flex flex-row">
+                                        <a asp-controller="Home" asp-action="CartItem" asp-route-id="@item.ProductId" class="btn btn-link">Update</a>
+                                        <form asp-action="RemoveFromCart" asp-route-id="@item.ProductId" asp-route-quantity="@item.Quantity" asp-route-ReturnUrl="@Context.Request.GetEncodedPathAndQuery()">
+                                            <button type="submit" class="btn btn-link" title="Remove">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                sn++;
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div class="float-left">
+                    <span class="font-weight-bold text-info">
+                        Total:  @total
+                    </span>
+                </div>
+                <div class="float-right">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+                    <a asp-controller="Home" asp-action="ConfirmOrder" asp-route-status="yes" class="btn btn-success">Confirm Order</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

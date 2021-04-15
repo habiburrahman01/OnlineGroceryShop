@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineGroceryShoppingStore</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+              asp-fallback-href="~/lib/fontawesome/css/all.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr">
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/Dashboard.css" rel="stylesheet" />
+    <link href="~/lib/DataTables/datatables.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <header>
+
+        @*<div class="d-flex flex-row align-items-center justify-content-between">
+                <div class="logo">
+
+                    <h1><a asp-area="" asp-controller="Home" asp-action="Index">E <span>Grocery Shop</span></a></h1>
+
+                </div>
+            </div>*@
+        <div class="row">
+            <div class="col-md-3">
+                <div class="logo">
+
+      ss
+
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="nav-menus">
+                    <ul class="nav nav-pills d-flex flex-row align-items-center justify-content-between">
+                        <li class="d-flex flex-row align-items-center justify-content-between">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link" style="border-radius:initial;">Home</a>
+                            <a asp-controller="Home" asp-action="Privacy" class="nav-link" style="border-radius:initial;">Policy</a>
+                            <a asp-controller="Home" asp-action="About" class="nav-link" style="border-radius:initial;">About</a>
+                            <a asp-controller="Home" asp-action="Contact" class="nav-link" style="border-radius:initial;">Contact</a>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" id="CategoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-list-alt"></i>
+                                    Categories
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="CategoryDropdown">
+                                </div>
+                            </div>
+                            <!-- Navbar Search -->
+                            <form asp-controller="Home" asp-action="Products" class="d-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                                <div class="input-group">
+                                    <input type="text" name="searchString" class="form-control" placeholder="Search Product" aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+    <div class="container pb-5">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!--footer start-->
+
+    <footer class="py-11 bg-dark-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <a class="footer-logo text-white h2 mb-0" href="index.html"> <img class="img-fluid" src="assets/images/product/1x/Asset 1.png" alt=""> </a>
+                   
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class="la la-facebook"></i></a> </li>
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class="la la-dribbble"></i></a> </li>
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class="la la-instagram"></i></a> </li>
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class="la la-twitter"></i></a> </li>
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class="la la-linkedin"></i></a> </li>
+                        <li class="list-inline-item"><a class="text-muted ic-2x" href="#"><i class=" lab la-pinterest-p"></i></a> </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-8 mt-6 mt-lg-0">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 navbar-white">
+                            <h6 class="mb-4 text-white font-w-5">Quick Links</h6>
+                            <ul class="navbar-nav list-unstyled mb-0">
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Shipment</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="about-us-1.html">About</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="shop-grid-left-sidebar.html">Shop</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="faq.html">Faq</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="blog-card.html">Blogs</a> </li>
+                                <li class="nav-item"><a class="nav-link text-muted font-w-4" href="contact-us.html">Contact Us</a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-4 mt-6 mt-sm-0 navbar-white">
+                            <h6 class="mb-4 text-white font-w-5">Information</h6>
+                            <ul class="navbar-nav list-unstyled mb-0">
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="terms-and-conditions.html">Term Of Service</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="privacy-policy.html">Privacy Policy</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Support</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Orders History</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Your Account</a> </li>
+                                <li class="nav-item"><a class="nav-link text-muted font-w-4" href="#">Suppliers</a> </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-4 mt-6 mt-sm-0 navbar-white">
+                            <h6 class="mb-4 text-white font-w-5">Shopping Guide</h6>
+                            <ul class="navbar-nav list-unstyled mb-0">
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Site Map</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Search Terms</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Advanced Search</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Return policy</a> </li>
+                                <li class="mb-3 nav-item"><a class="nav-link text-muted font-w-4" href="#">Where is my order?</a> </li>
+                                <li class="nav-item"><a class="nav-link text-muted font-w-4" href="#">Our Story</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-9">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex footer-box">
+                        <div class="mr-4"> <i class="las la-map-marker-alt ic-2x icon-img text-red-1"></i> </div>
+                        <div>
+                            <h6 class="mb-1 text-white font-w-5">Location</h6>
+                            <p class="mb-0 font-w-4 text-muted">Dhaka,Bangladesh</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="d-flex footer-box">
+                        <div class="mr-4"> <i class="las la-envelope ic-2x icon-img text-red-1"></i> </div>
+                        <div>
+                            <h6 class="mb-1 text-white font-w-5">Email us</h6>
+                            <a class="text-muted font-w-4" href="#"> admin@egrocer.com</a><br>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-md-3 mt-lg-0">
+                    <div class="d-flex footer-box">
+                        <div class="mr-4"> <i class="las la-mobile ic-2x icon-img text-red-1"></i> </div>
+                        <div>
+                            <h6 class="mb-1 text-white font-w-5">24/7 Support Service</h6>
+                            <p class="mb-0 font-w-4 text-muted">
+                                Call for any query |
+                                +8801736637418
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-muted align-items-center pt-9">
+                <div class="col-md-7 font-w-4"><small>Copyright ©2021. Copyright © 2021. All Rights Reserved </small> </div>
+                <div class="col-md-5 text-md-right mt-3 mt-md-0">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"> <a href="#"> <img class="img-fluid" src="~/images/pay-icon/01.png" alt=""> </a> </li>
+                        <li class="list-inline-item"> <a href="#"> <img class="img-fluid" src="~/images/pay-icon/02.png" alt=""> </a> </li>
+                        <li class="list-inline-item"> <a href="#"> <img class="img-fluid" src="~/images/pay-icon/03.png" alt=""> </a> </li>
+                        <li class="list-inline-item"> <a href="#"> <img class="img-fluid" src="~/images/pay-icon/04.png" alt=""> </a> </li>
+                        <li class="list-inline-item"> <a href="#"> <img class="img-fluid" src="~/images/pay-icon/05.png" alt=""> </a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--footer end-->
+    <!--footer end-->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4=">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Dashboard.js" asp-append-version="true"></script>
+    <script src="~/lib/DataTables/datatables.js" asp-append-version="true"></script>
+    <script src="~/lib/DataTables/Buttons/js/dataTables.buttons.js" asp-append-version="true"></script>
+    <script src="~/lib/DataTables/datatables.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

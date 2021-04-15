@@ -1,0 +1,95 @@
+﻿@model IEnumerable<OnlineShoppingStore.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Products</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-boxes"></i>
+            Products
+            <a asp-action="Add" class="btn btn-info mr-auto float-right"><i class="fas fa-plus"></i>Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <input type="hidden" id="tittle" value="List of Product" />
+                <table class="table table-bordered table-responsive-md" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Serial No.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ModifiedDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sn = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @sn
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ModifiedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                                    </td>
+                                </tr>
+                                sn++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

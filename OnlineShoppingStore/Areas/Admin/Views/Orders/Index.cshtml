@@ -1,0 +1,113 @@
+﻿@model IEnumerable<OnlineShoppingStore.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Orders</li>
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            Orders
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <input type="hidden" id="tittle" value="List of Order" />
+                <table class="table table-bordered table-responsive-md" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Serial No.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                Order No.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderedAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShippingCharge)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sn = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @sn
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderedAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ShippingCharge)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.OrderId">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+                                    </td>
+                                </tr>
+                                sn++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
